@@ -53,6 +53,7 @@ class ServerlessAWSDocumentation {
   }
 
   beforeDeploy() {
+    console.error('beforeDeploy')
     this.customVars = this.serverless.variables.service.custom;
     if (!(this.customVars && this.customVars.documentation)) return;
 
@@ -178,6 +179,7 @@ class ServerlessAWSDocumentation {
   }
 
   afterDeploy() {
+    console.error('afterDeploy')
     if (!this.customVars.documentation) return;
     const stackName = this.serverless.providers.aws.naming.getStackName(this.options.stage);
     return this.serverless.providers.aws.request('CloudFormation', 'describeStacks', { StackName: stackName },
@@ -185,7 +187,7 @@ class ServerlessAWSDocumentation {
       this.options.region
     ).then(this._buildDocumentation.bind(this))
     .catch(err => {
-      console.log(err)
+      console.error(err)
       if (err === 'documentation version already exists, skipping upload') {
         return Promise.resolve();
       }

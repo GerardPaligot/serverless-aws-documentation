@@ -2,6 +2,7 @@
 
 module.exports = {
   downloadDocumentation: function () {
+    console.error('downloadDocumentation')
     const aws = this.serverless.providers.aws;
     const stackName = aws.naming.getStackName(this.serverless.service.provider.stage);
     return this._getRestApiId(stackName).then((restApiId) => {
