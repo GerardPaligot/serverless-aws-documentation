@@ -185,6 +185,7 @@ class ServerlessAWSDocumentation {
       this.options.region
     ).then(this._buildDocumentation.bind(this))
     .catch(err => {
+      console.log(err)
       if (err === 'documentation version already exists, skipping upload') {
         return Promise.resolve();
       }

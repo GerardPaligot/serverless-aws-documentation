@@ -16,6 +16,9 @@ module.exports = {
       });
     }).then((response) => {
       this.fs.writeFileSync(this.options.outputFileName, response.body);
+    }).catch(err => {
+      console.log(err)
+      return Promise.reject(err)
     });
   },
 
